@@ -1,0 +1,11 @@
+*
+!.gitignore
+!Access_MongoDB.py
+!Datum_Extraction.py
+!README.md
+!views/
+!views/*
+!static/
+!static/*
+!feedback/
+!feedback/*
