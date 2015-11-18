@@ -231,7 +231,7 @@ def stylesheets(filename):
     return static_file(filename, root='static/css')
 
 
-@app.get('/<filename:re:.*\.(jpg|png|gif|ico)>')
+@app.get('/<filename:re:.*\.(jpg|png|gif|ico|svg)>')
 def images(filename):    
     return static_file(filename, root='static/img')
 
