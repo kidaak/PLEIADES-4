@@ -58,6 +58,7 @@ padding-top: 5px;
 <body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="inputFeedback.js" type="text/javascript"></script>
 <script src="divPagination.js" type="text/javascript"></script>
 <script src="jquery.sticky.js" type="text/javascript"></script>
 <script>
@@ -85,7 +86,7 @@ $(window).load(function(){
     <a href="/" style="position:absolute;top:0;right:0;"><h4>Search Again!</h4></a>
 </div>
 
-<table style="width:100%">
+<table id="results" style="max-width:1000px;margin-left:20px;">
 %for each_pmid in pmcid_det:
   <tr class="exp">
     <td>
@@ -97,79 +98,62 @@ $(window).load(function(){
                 <div id="slidingDiv_{{each_pmid['_id']['PMCID']}}" style="padding:20px; margin-top:10px; border-bottom:5px; solid #3399FF; display:none;">
                     <form id="{{each_pmid['_id']['PMCID']}}">
                         <div class="paginate">                        
-                            <ul id="datumList_{{each_pmid['_id']['PMCID']}}" style="list-style-type: none;">                                                                            
+                            <ul id="datumList_{{each_pmid['_id']['PMCID']}}" style="list-style-type: none; padding-left:0">                                                                            
                                 %for each_datum in each_pmid["Datums"]:
                                     <li id="{{each_pmid['_id']['PMCID']}}_{{each_datum['sr_no']}}">
-                                        <!--<table>
-                                            <tr style="width:100%"> 
-                                                <td>
-                                                <input type="checkbox" name="del_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="Yes"> Delete? &nbsp &nbsp
-                                                </td>                                           
-                                                <td width="250px">                                                                                     
-                                                %if 'subject' in each_datum["map"]:
-                                                    <b>Subject:</b> &nbsp <input type="text" name="sub_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['subject'][0]['Entity']['strings']}}" placeholder="{{each_datum['map']['subject'][0]['Entity']['strings']}}"> &nbsp &nbsp 
-                                                %end                                                
-                                                </td>
-                                                <td width="250px">
-                                                %if 'assay' in each_datum["map"]:
-                                                    <b>Assay:</b> &nbsp <input type="text" name="ass_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['assay'][0]['Text']}}" placeholder="{{each_datum['map']['assay'][0]['Text']}}"> &nbsp &nbsp
-                                                %end
-                                                </td>
-                                                <td width="250px">
-                                                %if 'change' in each_datum["map"]:
-                                                    <b>Change:</b> &nbsp <input type="text" name="chn_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['change'][0]['Text']}}" placeholder="{{each_datum['map']['change'][0]['Text']}}"> &nbsp &nbsp 
-                                                %end
-                                                </td>
-                                                <td width="250px">
-                                                %if 'treatment' in each_datum["map"]:
-                                                    <b>Treatment:</b> &nbsp <input type="text" name="trt_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['treatment'][0]['Entity']['strings']}}" placeholder="{{each_datum['map']['treatment'][0]['Entity']['strings']}}"> &nbsp &nbsp
-                                                %end
-                                                </td>                                                    
-                                            </tr>
-                                        </table>--> 
 
-                                        <div class="container-fluid"><div class="row datum">
+
+                                        <div class="container-fluid"><div class="row datum"><div class="form">
                                             <div class="col-sm-2">
-                                                <label><input type="checkbox" name="del_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="Yes"> Delete</label>
+                                                <label><input type="checkbox" class="datum-delete-checkbox" name="del_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="Yes"> Delete</label>
                                             </div>
+                                            
+                                            
                                             
                                             <div class="col-sm-10"><div class="row">
                                                 <div class="col-sm-3">
-                                                    <label>
                                                     %if 'subject' in each_datum["map"]:
-                                                        <b>Subject:</b> &nbsp <input type="text" class="form-control" name="sub_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['subject'][0]['Entity']['strings']}}" placeholder="{{each_datum['map']['subject'][0]['Entity']['strings']}}"> &nbsp &nbsp 
+                                                    <div class="form-group">
+                                                        <label class="control-label">Subject </label><br />
+                                                        <input type="text" class="form-control datum-field" name="sub_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['subject'][0]['Entity']['strings']}}" placeholder="{{each_datum['map']['subject'][0]['Entity']['strings']}}">
+                                                    </div>
                                                     %end
-                                                    </label>
                                                 </div>
                                                 
+                                                
                                                 <div class="col-sm-3">
-                                                    <label>
                                                     %if 'assay' in each_datum["map"]:
-                                                        <b>Assay:</b> &nbsp <input type="text" class="form-control" name="ass_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['assay'][0]['Text']}}" placeholder="{{each_datum['map']['assay'][0]['Text']}}"> &nbsp &nbsp
+                                                    <div class="form-group">
+                                                        <label class="control-label">Assay</label>
+                                                        <input type="text" class="form-control datum-field" name="ass_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['assay'][0]['Text']}}" placeholder="{{each_datum['map']['assay'][0]['Text']}}"> 
+                                                    </div>
                                                     %end
-                                                    </label>
                                                 </div>
                                                 
+                                                
                                                 <div class="col-sm-3">
-                                                    <label>
                                                     %if 'change' in each_datum["map"]:
-                                                        <b>Change:</b> &nbsp <input type="text" class="form-control" name="chn_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['change'][0]['Text']}}" placeholder="{{each_datum['map']['change'][0]['Text']}}"> &nbsp &nbsp 
+                                                    <div class="form-group">
+                                                        <label>Change</label>
+                                                        <input type="text" class="form-control datum-field" name="chn_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['change'][0]['Text']}}" placeholder="{{each_datum['map']['change'][0]['Text']}}">
+                                                    </div> 
                                                     %end
-                                                    </label>
                                                 </div>
                                                 
+                                                
                                                 <div class="col-sm-3">
-                                                    <label>
                                                     %if 'treatment' in each_datum["map"]:
-                                                        <b>Treatment:</b> &nbsp <input type="text" class="form-control" name="trt_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['treatment'][0]['Entity']['strings']}}" placeholder="{{each_datum['map']['treatment'][0]['Entity']['strings']}}"> &nbsp &nbsp
+                                                    <div class="form-group">
+                                                        <label>Treatment</label>
+                                                        <input type="text" class="form-control datum-field" name="trt_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['treatment'][0]['Entity']['strings']}}" placeholder="{{each_datum['map']['treatment'][0]['Entity']['strings']}}">
+                                                    </div>
                                                     %end
-                                                    </label>
                                                 </div>
                                             
                                             </div></div>
 
                                             
-                                        </div></div>
+                                        </div></div></div>
                                         
 
 
