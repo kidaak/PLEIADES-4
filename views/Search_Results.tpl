@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
+<title>PLEIADES Search Results </title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>-->
+
+
 <style>
-body {background-color: #fff3f0;
-font-family:Tahoma,Verdana,Segoe,sans-serif;
+body {
 font-size:14px;}
 
 .go-top {
@@ -25,13 +34,23 @@ font-size:14px;}
     text-decoration: none;
 }
 
+.exp td {
+    padding-bottom: 20px;
+}
+
+.row.datum label {
+    display: inline;
+}
+
+.row.datum {
+    margin-bottom: 30px;
+}
+
 #Results {
 padding-top: 5px;
 
 }
 
-tr.exp:nth-child(odd) { background-color: #eae0ff; }
-tr.exp:nth-child(even) { background-color: #d6c1ff; }
 
 </style>
 </head>
@@ -81,7 +100,7 @@ $(window).load(function(){
                             <ul id="datumList_{{each_pmid['_id']['PMCID']}}" style="list-style-type: none;">                                                                            
                                 %for each_datum in each_pmid["Datums"]:
                                     <li id="{{each_pmid['_id']['PMCID']}}_{{each_datum['sr_no']}}">
-                                        <table>
+                                        <!--<table>
                                             <tr style="width:100%"> 
                                                 <td>
                                                 <input type="checkbox" name="del_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="Yes"> Delete? &nbsp &nbsp
@@ -107,7 +126,54 @@ $(window).load(function(){
                                                 %end
                                                 </td>                                                    
                                             </tr>
-                                        </table>
+                                        </table>--> 
+
+                                        <div class="container-fluid"><div class="row datum">
+                                            <div class="col-sm-2">
+                                                <label><input type="checkbox" name="del_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="Yes"> Delete</label>
+                                            </div>
+                                            
+                                            <div class="col-sm-10"><div class="row">
+                                                <div class="col-sm-3">
+                                                    <label>
+                                                    %if 'subject' in each_datum["map"]:
+                                                        <b>Subject:</b> &nbsp <input type="text" class="form-control" name="sub_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['subject'][0]['Entity']['strings']}}" placeholder="{{each_datum['map']['subject'][0]['Entity']['strings']}}"> &nbsp &nbsp 
+                                                    %end
+                                                    </label>
+                                                </div>
+                                                
+                                                <div class="col-sm-3">
+                                                    <label>
+                                                    %if 'assay' in each_datum["map"]:
+                                                        <b>Assay:</b> &nbsp <input type="text" class="form-control" name="ass_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['assay'][0]['Text']}}" placeholder="{{each_datum['map']['assay'][0]['Text']}}"> &nbsp &nbsp
+                                                    %end
+                                                    </label>
+                                                </div>
+                                                
+                                                <div class="col-sm-3">
+                                                    <label>
+                                                    %if 'change' in each_datum["map"]:
+                                                        <b>Change:</b> &nbsp <input type="text" class="form-control" name="chn_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['change'][0]['Text']}}" placeholder="{{each_datum['map']['change'][0]['Text']}}"> &nbsp &nbsp 
+                                                    %end
+                                                    </label>
+                                                </div>
+                                                
+                                                <div class="col-sm-3">
+                                                    <label>
+                                                    %if 'treatment' in each_datum["map"]:
+                                                        <b>Treatment:</b> &nbsp <input type="text" class="form-control" name="trt_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['treatment'][0]['Entity']['strings']}}" placeholder="{{each_datum['map']['treatment'][0]['Entity']['strings']}}"> &nbsp &nbsp
+                                                    %end
+                                                    </label>
+                                                </div>
+                                            
+                                            </div></div>
+
+                                            
+                                        </div></div>
+                                        
+
+
+
                                     </li>
                                 %end                                    
                             </ul> 

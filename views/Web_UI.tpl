@@ -82,9 +82,7 @@ background-size: auto 70%;
     <div id="title">    
         PLEIADES Extracted Datum Browser
     </div>
-    <div id="subtitle">
-        University of Wisconsin &mdash; Madison
-    </div>
+
 </div>
 
 
