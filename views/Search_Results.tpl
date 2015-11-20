@@ -43,7 +43,8 @@ font-size:14px;}
 }
 
 .row.datum {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    padding-top: 10px;
 }
 
 #Results {
@@ -79,7 +80,7 @@ $(window).load(function(){
 
 
 <div id="Results">
-<h2>Search Results</h2>
+<h2 style="margin:40px;">Search Results</h2>
 
 <a href="#" class="go-top" style="display:none;">Back to top</a>
 <div id="header">
@@ -96,7 +97,7 @@ $(window).load(function(){
                 {{each_pmid["_id"]["Authors"]}} <br />
                 <i>{{each_pmid["_id"]["FullJournalName"]}}</i> {{each_pmid["_id"]["PubDate"]}}, {{each_pmid["_id"]["Volume"]}}: {{each_pmid["_id"]["Pages"]}}  &nbsp <a href="/articles/PMC{{each_pmid['_id']['PMCID']}}/PMC{{each_pmid['_id']['PMCID']}}.html" target="_blank">PMC{{each_pmid["_id"]["PMCID"]}} </a> &nbsp <a href="#" class="show_hide" rel="#slidingDiv_{{each_pmid['_id']['PMCID']}}"> Show Datums </a> <br />
                 <div id="slidingDiv_{{each_pmid['_id']['PMCID']}}" style="padding:20px; margin-top:10px; border-bottom:5px; solid #3399FF; display:none;">
-                    <form id="{{each_pmid['_id']['PMCID']}}">
+                    <form id="{{each_pmid['_id']['PMCID']}}" class="datum-form">
                         <div class="paginate">                        
                             <ul id="datumList_{{each_pmid['_id']['PMCID']}}" style="list-style-type: none; padding-left:0">                                                                            
                                 %for each_datum in each_pmid["Datums"]:
@@ -104,7 +105,7 @@ $(window).load(function(){
 
 
                                         <div class="container-fluid"><div class="row datum"><div class="form">
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-2" style="padding-top:24px">
                                                 <label><input type="checkbox" class="datum-delete-checkbox" name="del_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="Yes"> Delete</label>
                                             </div>
                                             
@@ -134,7 +135,7 @@ $(window).load(function(){
                                                 <div class="col-sm-3">
                                                     %if 'change' in each_datum["map"]:
                                                     <div class="form-group">
-                                                        <label>Change</label>
+                                                        <label class="control-label">Change</label>
                                                         <input type="text" class="form-control datum-field" name="chn_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['change'][0]['Text']}}" placeholder="{{each_datum['map']['change'][0]['Text']}}">
                                                     </div> 
                                                     %end
@@ -144,7 +145,7 @@ $(window).load(function(){
                                                 <div class="col-sm-3">
                                                     %if 'treatment' in each_datum["map"]:
                                                     <div class="form-group">
-                                                        <label>Treatment</label>
+                                                        <label class="control-label">Treatment</label>
                                                         <input type="text" class="form-control datum-field" name="trt_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="{{each_datum['map']['treatment'][0]['Entity']['strings']}}" placeholder="{{each_datum['map']['treatment'][0]['Entity']['strings']}}">
                                                     </div>
                                                     %end
@@ -161,7 +162,7 @@ $(window).load(function(){
                                     </li>
                                 %end                                    
                             </ul> 
-                            <input type="submit" id="Submit" name="Submit" value="Submit"> 
+                            <input type="submit" id="Submit" name="Submit" value="Submit" class="submit-datums"> 
                             <span id="result_{{each_pmid['_id']['PMCID']}}" width="250px"></span>   &nbsp &nbsp &nbsp &nbsp 
                             <a href="javascript:void()" id="insert-more"> Add New Datum </a>  <br>                                             
                         </div>
