@@ -8,3 +8,7 @@
 !static/
 !static/*
 
+!datum_evidenceid_dict.p
+!summary_dict.p
+!xmlpath_xmlpathid_dict.p
+!datum_xmlpathid_dict.p

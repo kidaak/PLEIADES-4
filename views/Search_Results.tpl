@@ -95,7 +95,7 @@ $(window).load(function(){
             <li>
                 <b>{{each_pmid["_id"]["Title"]}}</b> <br />
                 {{each_pmid["_id"]["Authors"]}} <br />
-                <i>{{each_pmid["_id"]["FullJournalName"]}}</i> {{each_pmid["_id"]["PubDate"]}}, {{each_pmid["_id"]["Volume"]}}: {{each_pmid["_id"]["Pages"]}}  &nbsp <a href="/articles/PMC{{each_pmid['_id']['PMCID']}}/PMC{{each_pmid['_id']['PMCID']}}.html" target="_blank">PMC{{each_pmid["_id"]["PMCID"]}} </a> &nbsp <a href="#" class="show_hide" rel="#slidingDiv_{{each_pmid['_id']['PMCID']}}"> Show Datums </a> <br />
+                <i>{{each_pmid["_id"]["FullJournalName"]}}</i> {{each_pmid["_id"]["PubDate"]}}, {{each_pmid["_id"]["Volume"]}}: {{each_pmid["_id"]["Pages"]}}  &nbsp <a href="/articles/PMC{{each_pmid['_id']['PMCID']}}/PMC{{each_pmid['_id']['PMCID']}}.html" target="_blank">PMC{{each_pmid["_id"]["PMCID"]}} </a> &nbsp <a href="#" class="show_hide" rel="#slidingDiv_{{each_pmid['_id']['PMCID']}}"> Show Datums </a> &nbsp <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{each_pmid["_id"]['PMID']}}/" target="_blank">PMID:{{each_pmid["_id"]["PMID"]}} </a> <br />
                 <div id="slidingDiv_{{each_pmid['_id']['PMCID']}}" style="padding:20px; margin-top:10px; border-bottom:5px; solid #3399FF; display:none;">
                     <form id="{{each_pmid['_id']['PMCID']}}" class="datum-form">
                         <div class="paginate">                        
