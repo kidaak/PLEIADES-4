@@ -53,8 +53,7 @@ def update_cssfile(pmcid):
         if line.strip().endswith('#f8f8f8 }'):
             print css_str,
 
-#app = application = Bottle()
-app = Bottle()
+app = application = Bottle()
 
 @app.route('/')     # http://localhost:8080/
 def main_index():
@@ -83,6 +82,7 @@ def get_feedback():
     try:
         if not os.path.exists(fold_path):
             os.makedirs(fold_path)   
+            os.chmod(fold_path, 766)
     except:
         return "False"
         redirect("404")
@@ -92,6 +92,7 @@ def get_feedback():
         pmcid_path = os.path.join(fold_path, pmcid)
         if not os.path.exists(pmcid_path):
                 os.makedirs(pmcid_path)
+                os.chmod(pmcid_path, 766)
         for datum in json_cliobj["Datums"]:
             if datum["New"] == "No":
                 datum["Related_Datums"] = srno_datumid[json_cliobj["PMCID"].strip()][datum["sr_no"].strip()]
@@ -102,6 +103,7 @@ def get_feedback():
         write_path = os.path.join(pmcid_path, ts_fname)
         json_fn = open(write_path, 'w')
         json.dump(json_cliobj, json_fn, indent=4, ensure_ascii=False)
+        os.chmod(write_path, 766)
         return "True"
     except:
         return "False"
@@ -231,7 +233,7 @@ def stylesheets(filename):
     return static_file(filename, root='static/css')
 
 
-@app.get('/<filename:re:.*\.(jpg|png|gif|ico)>')
+@app.get('/<filename:re:.*\.(jpg|png|gif|ico|svg)>')
 def images(filename):    
     return static_file(filename, root='static/img')
 
@@ -245,5 +247,5 @@ logging.config.fileConfig("./logs/logging.conf", disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 
-run(app, reloader=True, host='localhost', port=8080, debug=True)
+#run(app, reloader=True, host='localhost', port=8080, debug=True)
 

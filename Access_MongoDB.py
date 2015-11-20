@@ -55,29 +55,29 @@ class Big_Mech(object):
                         
             }
         }},
-        { "$project": { "PMCID":1, "Title":1, "PubDate":1, "Volume":1, "Issue":1, "Pages":1, "FullJournalName":1, "Authors":1, "Datums.map.assay.Text":1, "Datums.map.change.Text":1, "Datums.map.subject.Entity.strings":1, "Datums.map.subject.Entity.uniprotSym":1, "Datums.map.treatment.Entity.strings":1, "Datums.map.treatment.Entity.uniprotSym":1, "Datums.datum_id":1, "_id":0 }},
+        { "$project": { "PMCID":1, "PMID":1, "Title":1, "PubDate":1, "Volume":1, "Issue":1, "Pages":1, "FullJournalName":1, "Authors":1, "Datums.map.assay.Text":1, "Datums.map.change.Text":1, "Datums.map.subject.Entity.strings":1, "Datums.map.subject.Entity.uniprotSym":1, "Datums.map.treatment.Entity.strings":1, "Datums.map.treatment.Entity.uniprotSym":1, "Datums.datum_id":1, "_id":0 }},
         { "$unwind": "$Datums" },
         { 
           "$match": query2
         },
-        { "$project": { "PMCID":1, "Title":1, "PubDate":1, "Volume":1, "Issue":1, "Pages":1, "FullJournalName":1, "Authors":1, "Datums.map.assay.Text":1, "Datums.map.change.Text":1, "Datums.map.subject.Entity.strings":1, "Datums.map.treatment.Entity.strings":1, "Datums.datum_id":1, "_id":0 }},        
-        { "$group": { "_id": {"PMCID": "$PMCID", "Title": "$Title", "PubDate": "$PubDate", "Volume": "$Volume", "Issue": "$Issue", "Pages": "$Pages", "FullJournalName": "$FullJournalName", "Authors": "$Authors"}, "Datums": { "$addToSet": "$Datums" }}}
+        { "$project": { "PMCID":1, "PMID":1, "Title":1, "PubDate":1, "Volume":1, "Issue":1, "Pages":1, "FullJournalName":1, "Authors":1, "Datums.map.assay.Text":1, "Datums.map.change.Text":1, "Datums.map.subject.Entity.strings":1, "Datums.map.treatment.Entity.strings":1, "Datums.datum_id":1, "_id":0 }},        
+        { "$group": { "_id": {"PMCID": "$PMCID", "PMID": "$PMID", "Title": "$Title", "PubDate": "$PubDate", "Volume": "$Volume", "Issue": "$Issue", "Pages": "$Pages", "FullJournalName": "$FullJournalName", "Authors": "$Authors"}, "Datums": { "$addToSet": "$Datums" }}}
         ] 
         #{ allowDiskUse: 1 }
         )
 
         for each_doc in cursor:     # each_doc is a dictionary 
-            seen = set(); reprsn_datumid = {}        
+            seen = set(); reprsn_datumid = {}
             result = []; datum_ids = []; reprsn_srno = {}
-            for srno,d in enumerate(each_doc["Datums"]): 
+            for srno,d in enumerate(each_doc["Datums"]):
                 datum_ids.append(d["datum_id"])
-                d.pop("datum_id", None)           
+                d.pop("datum_id", None)
                 representation = set_from_dict(d)
                 if representation in reprsn_datumid:
                     reprsn_datumid[representation].append(datum_ids[-1])
                 else:
                     reprsn_datumid[representation] = [datum_ids[-1]]
-                if representation in seen:                    
+                if representation in seen:
                     continue
                 d["sr_no"] = str(srno+1); result.append(d)
                 seen.add(representation); reprsn_srno[representation] = d["sr_no"]
@@ -86,9 +86,8 @@ class Big_Mech(object):
             for repre in seen:
                 srno_datumid[each_doc["_id"]["PMCID"]][reprsn_srno[repre]] = reprsn_datumid[repre]
             each_doc["Datums"] = result; each_doc["Uniq_Datums"] = len(result)
-            selected_datums["PMC" + each_doc["_id"]["PMCID"]] = datum_ids                           
+            selected_datums["PMC" + each_doc["_id"]["PMCID"]] = datum_ids
             pmcid_datums.append(each_doc)
 
-        return pmcid_datums 
-
+        return pmcid_datums
         
