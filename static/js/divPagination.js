@@ -61,7 +61,9 @@ jQuery(document).ready(function($) {
                        max_srno = num;
                     }
                 });   
-                console.log("Maximum sr. no: " + max_srno)            
+                console.log("Maximum sr. no: " + max_srno)
+                
+                /*            
                 $('#'+last.attr("id")).after("<li id='"+$pmcid+"_"+(max_srno+1)+"' class='new'>" +
                     "<table>" +
                         "<tr style='width:100%'>" +
@@ -82,7 +84,52 @@ jQuery(document).ready(function($) {
                             "</td>" +                                                    
                         "</tr>" +
                     "</table>" +
-                "</li>");
+                "</li>"); */
+                
+                
+                $('#'+last.attr("id")).after("<li id='"+$pmcid+"_"+(max_srno+1)+"' class='new'>" +
+                
+                    '<div class="container-fluid"><div class="row datum bg-warning"><div class="form">' +
+                        '<div class="col-sm-2" style="padding-top:24px">' +
+                            '<label><input type="checkbox" class="datum-delete-checkbox" name="del_'+(max_srno+1)+'_'+$pmcid+'" value="Yes"> Delete</label>' +
+                        '</div>' +
+                
+                        '<div class="col-sm-10"><div class="row">' +
+                            '<div class="col-sm-3">' +
+                                '<div class="form-group">' +
+                                    '<label class="control-label">Subject </label><br />' +
+                                    '<input type="text" class="form-control datum-field" name="sub_' + (max_srno+1)+"_"+$pmcid + '" value="" placeholder=""">' +
+                                '</div>' +
+                            '</div>' +
+                            
+                            '<div class="col-sm-3">' +
+                                '<div class="form-group">' +
+                                    '<label class="control-label">Assay</label>' +
+                                    '<input type="text" class="form-control datum-field" name="ass_' + (max_srno+1)+"_"+$pmcid + '" value="" placeholder="">' +
+                                '</div>' +
+                            '</div>' +
+                            
+                            '<div class="col-sm-3">' +
+                                '<div class="form-group">' +
+                                    '<label class="control-label">Change</label>' +
+                                    '<input type="text" class="form-control datum-field" name="chn_' + (max_srno+1)+"_"+$pmcid + '" value="" placeholder="">' +
+                                '</div>' +
+                            '</div>' +
+
+                            '<div class="col-sm-3">' +
+                                '<div class="form-group">' +
+                                    '<label class="control-label">Treatment</label>' +
+                                    '<input type="text" class="form-control datum-field" name="trt_' + (max_srno+1)+"_"+$pmcid + '" value="" placeholder="">' +
+                                '</div>' +
+                            '</div>' +
+                        
+                        '</div></div>' +
+                    '</div></div></div>' +
+                "</li>")
+                
+                
+                
+                
 
                 $('input[name=sub_' +(max_srno+1)+'_'+$pmcid+']').focus();                
             });
