@@ -62,8 +62,8 @@ class Big_Mech(object):
         },
         { "$project": { "PMCID":1, "PMID":1, "Title":1, "PubDate":1, "Volume":1, "Issue":1, "Pages":1, "FullJournalName":1, "Authors":1, "Datums.map.assay.Text":1, "Datums.map.change.Text":1, "Datums.map.subject.Entity.strings":1, "Datums.map.treatment.Entity.strings":1, "Datums.datum_id":1, "_id":0 }},        
         { "$group": { "_id": {"PMCID": "$PMCID", "PMID": "$PMID", "Title": "$Title", "PubDate": "$PubDate", "Volume": "$Volume", "Issue": "$Issue", "Pages": "$Pages", "FullJournalName": "$FullJournalName", "Authors": "$Authors"}, "Datums": { "$addToSet": "$Datums" }}}
-        ] 
-        #{ allowDiskUse: 1 }
+        ], 
+        allowDiskUse=True
         )
 
         for each_doc in cursor:     # each_doc is a dictionary 
