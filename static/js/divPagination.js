@@ -63,62 +63,35 @@ jQuery(document).ready(function($) {
                 });   
                 console.log("Maximum sr. no: " + max_srno)
                 
-                /*            
-                $('#'+last.attr("id")).after("<li id='"+$pmcid+"_"+(max_srno+1)+"' class='new'>" +
-                    "<table>" +
-                        "<tr style='width:100%'>" +
-                            "<td>" +
-                            "<input type='checkbox' name='del_"+(max_srno+1)+"_"+$pmcid+"' value='Yes'> Delete? &nbsp &nbsp" +
-                            "</td>" +                                           
-                            "<td width='250px'>" +                                                                                                                
-                                "<b>Subject:</b> &nbsp <input type='text' name='sub_"+(max_srno+1)+"_"+$pmcid+"' value='' placeholder=''> &nbsp &nbsp " +                                                                      
-                            "</td>" +
-                            "<td width='250px'>" +                           
-                                "<b>Assay:</b> &nbsp <input type='text' name='ass_"+(max_srno+1)+"_"+$pmcid+"' value='' placeholder=''> &nbsp &nbsp " +                           
-                            "</td>" +
-                            "<td width='250px'>" +                      
-                                "<b>Change:</b> &nbsp <input type='text' name='chn_"+(max_srno+1)+"_"+$pmcid+"' value='' placeholder=''> &nbsp &nbsp " +                           
-                            "</td>" +
-                            "<td width='250px'>" +                           
-                                "<b>Treatment:</b> &nbsp <input type='text' name='trt_"+(max_srno+1)+"_"+$pmcid+"' value='' placeholder=''> &nbsp &nbsp " +                           
-                            "</td>" +                                                    
-                        "</tr>" +
-                    "</table>" +
-                "</li>"); */
-                
                 
                 $('#'+last.attr("id")).after("<li id='"+$pmcid+"_"+(max_srno+1)+"' class='new'>" +
                 
                     '<div class="container-fluid"><div class="row datum bg-warning"><div class="form">' +
-                        '<div class="col-sm-2" style="padding-top:24px">' +
+                        '<div class="col-sm-2" style="padding-top:4px">' +
                             '<label><input type="checkbox" class="datum-delete-checkbox" name="del_'+(max_srno+1)+'_'+$pmcid+'" value="Yes"> Delete</label>' +
                         '</div>' +
                 
                         '<div class="col-sm-10"><div class="row">' +
                             '<div class="col-sm-3">' +
                                 '<div class="form-group">' +
-                                    '<label class="control-label">Subject </label><br />' +
                                     '<input type="text" class="form-control datum-field" name="sub_' + (max_srno+1)+"_"+$pmcid + '" value="" placeholder=""">' +
                                 '</div>' +
                             '</div>' +
                             
                             '<div class="col-sm-3">' +
                                 '<div class="form-group">' +
-                                    '<label class="control-label">Assay</label>' +
                                     '<input type="text" class="form-control datum-field" name="ass_' + (max_srno+1)+"_"+$pmcid + '" value="" placeholder="">' +
                                 '</div>' +
                             '</div>' +
                             
                             '<div class="col-sm-3">' +
                                 '<div class="form-group">' +
-                                    '<label class="control-label">Change</label>' +
                                     '<input type="text" class="form-control datum-field" name="chn_' + (max_srno+1)+"_"+$pmcid + '" value="" placeholder="">' +
                                 '</div>' +
                             '</div>' +
 
                             '<div class="col-sm-3">' +
                                 '<div class="form-group">' +
-                                    '<label class="control-label">Treatment</label>' +
                                     '<input type="text" class="form-control datum-field" name="trt_' + (max_srno+1)+"_"+$pmcid + '" value="" placeholder="">' +
                                 '</div>' +
                             '</div>' +
