@@ -82,8 +82,8 @@ $(window).load(function(){
 <div id="Results">
 <h2 style="margin:40px;">Search Results</h2>
 
-<h4> {{query_str["query"]}} </h4> <br \>
-<h5>Total {{query_str["num"]}} articles returned! </h5>
+<h5 style="margin:40px;"> {{query_str["query"]}} </h5>
+<h5 style="margin:40px;">Total {{query_str["num"]}} articles returned! </h5>
 
 <a href="#" class="go-top" style="display:none;">Back to top</a>
 <div id="header">
@@ -120,7 +120,7 @@ $(window).load(function(){
 
                                         <div class="container-fluid"><div class="row datum"><div class="form">
                                             <div class="col-sm-2" style="padding-top:4px">
-                                                <label><input type="checkbox" class="datum-delete-checkbox" name="del_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="Yes"> Delete</label>
+                                                <label><input type="checkbox" class="datum-delete-checkbox" name="del_{{each_datum['sr_no']}}_{{each_pmid['_id']['PMCID']}}" value="No" placeholder="No"> Delete</label>
                                             </div>
                                             
                                             

@@ -107,19 +107,29 @@ jQuery(document).ready(function($) {
                 $('input[name=sub_' +(max_srno+1)+'_'+$pmcid+']').focus();                
             });
 
+            $('input:checkbox').change(function () {                                
+                var check = $(this).attr('checked');                
+                if (check == "checked") { $(this).attr("value", "Yes") }
+                else  { $(this).attr("value", "No") }                
+            });
+            
             $('body').delegate('#Submit', 'click', function(e) {
                 e.preventDefault();
                 //alert("Saswati")
                 var $form = $(this).parents('form:first');
                 var $pmcid = $form.attr("id")                
                 var fields = $form.serializeArray()
+                
+                $("#"+$pmcid+" input:checkbox:not(:checked)").each(function() {
+                    fields.push({ name: $(this).attr("name"), value: $(this).attr("value") }) // For each unchecked checkbox                    
+                });
+                
                 var seen = []
                 var datums = []
                 var json_obj = {}
                 json_obj["PMCID"] = $pmcid                
-                jQuery.each( fields, function( i, field ) {                                   
-                    if ($.trim(field.value) != $.trim($('input[name=' + field.name +']').attr("placeholder")) ) { 
-                        console.log("Field Name: " + field.name + "   " + "Field Value: " + $.trim(field.value) + "   " + "Placeholder: " + $('input[name=' + field.name +']').attr("placeholder"))                                                                   
+                jQuery.each( fields, function( i, field ) {                                                   
+                    if ($.trim(field.value) != $.trim($('input[name=' + field.name +']').attr("placeholder")) ) {                                                                                     
                         var $li = $('input[name=' + field.name +']').parents('li')
                         var temp_arr = $li.attr("id").toString().split('_')
                         var $list_srno = temp_arr[1]                        
@@ -134,12 +144,11 @@ jQuery(document).ready(function($) {
                         else {  temp["New"] = "No" }
                         $('#'+$li.attr("id")).find('input').each(function(j, element) {  
                             var str_arr = $(element).attr("name").toString().split('_')
-                            console.log($(element).attr("name").toString())
+                            //console.log($(element).attr("name").toString())
                             var values = {}
                             if (str_arr[0] == "del") {                                
-                                //console.log($('#'+$(element).attr("id")).is(':checked'));
                                 temp["Delete"] = $(element).is(':checked')
-                                //return true
+                                $(element).attr("placeholder", $(element).attr("value"))                                                                
                             }          
                             else if (str_arr[0] == "sub") {                                    
                                     values["OldValue"] = $(element).attr("placeholder")
