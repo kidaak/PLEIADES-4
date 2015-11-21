@@ -271,5 +271,5 @@ logging.config.fileConfig("./logs/logging.conf", disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 
-#run(app, reloader=True, host='localhost', port=8080, debug=True)
+run(app, reloader=True, host='localhost', port=8080, debug=True)
 
