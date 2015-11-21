@@ -82,8 +82,8 @@ $(window).load(function(){
 <div id="Results">
 <h2 style="margin:40px;">Search Results</h2>
 
-<h4> {{query_res["query"]}} </h4> <br \>
-<h5>Total {{query_res["num"]}} articles returned! </h5>
+<h4> {{query_str["query"]}} </h4> <br \>
+<h5>Total {{query_str["num"]}} articles returned! </h5>
 
 <a href="#" class="go-top" style="display:none;">Back to top</a>
 <div id="header">
