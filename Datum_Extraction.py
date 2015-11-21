@@ -23,13 +23,36 @@ sys.setdefaultencoding("utf-8")
 from random import shuffle
 
 
-def create_dict(client_ip, log_assay, log_change, log_subject, log_trtmnt, my_dict):
+def create_dict(client_ip, log_assay, log_change, log_subject, log_trtmnt, num_results, my_dict):
     my_dict["Query"] = {}
     my_dict["Query"]["Client_IP"] = client_ip
     my_dict["Query"]["Assay"] = log_assay
     my_dict["Query"]["Subject"] = log_change
     my_dict["Query"]["Treatment"] = log_trtmnt
     my_dict["Query"]["Change"] = log_change
+    my_dict["Query"]["Result_Size"] = num_results
+
+def build_string(my_dict):
+    res_dict = {}; first = True
+    my_str = "Showing results for "
+    if my_dict["Query"]["Assay"] != "": 
+        my_str += "Assay: " + my_dict["Query"]["Assay"] 
+        first = False
+    if my_dict["Query"]["Subject"] != "": 
+        if not first:   my_str += "; "            
+        else: first = False
+        my_str += "Subject: " + my_dict["Query"]["Subject"] 
+    if my_dict["Query"]["Treatment"] != "": 
+        if not first:   my_str += "; "            
+        else: first = False
+        my_str += "Treatment: " + my_dict["Query"]["Treatment"] 
+    if my_dict["Query"]["Change"] != "": 
+        if not first:   my_str += "; "            
+        else: first = False
+        my_str += "Change: " + my_dict["Query"]["Change"] 
+    res_dict["query"] = my_str
+    res_dict["num"] = my_dict["Query"]["Result_Size"]
+    return res_dict
 
 
 def rank_articles(pmcid_details, rankby):
@@ -200,17 +223,18 @@ def process_formdata():
     if no_subj and no_assay and no_change and no_trtmnt:
         return 'You have not made any selections. Please try again!'
   
-    #return template('The subject is {{sub}}, the treatment is {{trt}}', sub=assay_phos, trt=change_detunc)
-    create_dict(client_ip, log_assay, log_change, log_subject, log_trtmnt, search_dict)
+    #return template('The subject is {{sub}}, the treatment is {{trt}}', sub=assay_phos, trt=change_detunc)    
     log_message = "\n" + client_ip + ":: " + "Assay: " + log_assay + "\t Change: " + log_change + "\t Subject: " + log_subject + "\t Treatment: " + log_trtmnt
     logger.info(log_message)
-    pmcid_details = mongodb_obj.get_PMCID_datums(query, query2, selected_datums, srno_datumid)  # TODO: Analyze whether selected_datums can be replaced by srno_datumid in update_cssfile(pmid)    
+    pmcid_details = mongodb_obj.get_PMCID_datums(query, query2, selected_datums, srno_datumid)  # TODO: Analyze whether selected_datums can be replaced by srno_datumid in update_cssfile(pmid)        
 
     if len(pmcid_details) == 0:
         return 'Your selections did not match any datums. Please try again!'
     else:   
+        create_dict(client_ip, log_assay, log_change, log_subject, log_trtmnt, len(pmcid_details), search_dict)
         ranked_articles = rank_articles(pmcid_details, rankby)
-        return template('Search_Results', dict(pmcid_det=ranked_articles))
+        query_str = build_string(search_dict); print query_str
+        return template('Search_Results', dict(pmcid_det=ranked_articles), dict(query_str=query_str))
         
     #return template('The subject is {{sub}}, the treatment is {{trt}}', sub=assay_phos, trt=change_detunc)
 

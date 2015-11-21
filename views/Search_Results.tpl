@@ -82,6 +82,9 @@ $(window).load(function(){
 <div id="Results">
 <h2 style="margin:40px;">Search Results</h2>
 
+<h4> {{query_res["query"]}} </h4> <br \>
+<h5>Total {{query_res["num"]}} articles returned! </h5>
+
 <a href="#" class="go-top" style="display:none;">Back to top</a>
 <div id="header">
     <a href="/" style="position:absolute;top:0;right:0;"><h4>Search Again!</h4></a>
@@ -163,7 +166,7 @@ $(window).load(function(){
                                 %end                                    
                             </ul> 
                             <input type="submit" id="Submit" name="Submit" value="Submit" class="submit-datums"> 
-                            <span id="result_{{each_pmid['_id']['PMCID']}}" width="250px"></span>   &nbsp &nbsp &nbsp &nbsp 
+                            <span id="result_{{each_pmid['_id']['PMCID']}}" width="250px"></span>   &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
                             <a href="javascript:void()" id="insert-more"> Add New Datum </a>  <br>                                             
                         </div>
                     </form>
