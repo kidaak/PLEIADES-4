@@ -99,7 +99,7 @@ background-size: auto 70%;
 
 
 <div class="form-group" style="margin-top:30px">
-    <label class="control-label col-sm-2">Assay</label>
+    <div class="col-sm-2" style="text-align:right"><label>Assay</label></div>
 
     <div class="col-sm-5">
         <label class="checkbox-label"><input type="checkbox" name="assay_phos" value="phos"> Phosphorylation</label>
@@ -122,7 +122,7 @@ background-size: auto 70%;
 
 
 <div class="form-group" style="margin-top:30px;">
-    <label class="control-label col-sm-2">Change</label>
+    <div class="col-sm-2" style="text-align:right"><label>Change</label></div>
 
     <div class="col-sm-5">
         <label class="checkbox-label"><input type="checkbox" name="change_inc" value="increased"> Increased</label>
